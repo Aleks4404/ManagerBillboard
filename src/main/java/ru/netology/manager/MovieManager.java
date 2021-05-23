@@ -1,28 +1,25 @@
 package ru.netology.manager;
 
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.NoArgsConstructor;
 import ru.netology.domain.Movie;
 
-@NoArgsConstructor
+
 public class MovieManager {
+    private static Movie[] items = new Movie[0];
     private int showMoviesCount = 10; // количество фильмов = 10
-    private Movie[] items = new Movie[0];
 
     public MovieManager(int showMoviesCount) {
         this.showMoviesCount = showMoviesCount;
     }
 
-    public void addMovie(Movie item) { // добавить фильм
+    public MovieManager(){
+    }
+
+    public void add(Movie item) { // добавить фильм
         // создаём новый массив размером на единицу больше
         int length = items.length + 1;
         Movie[] tmp = new Movie[length];
 
         // копируем поэлементно
-        for (int i = 0; i < items.length; i++) {
-            tmp[i] = items[i];
-        }
         System.arraycopy(items, 0, tmp, 0, items.length);
 
         // кладём последним наш элемент
@@ -31,25 +28,19 @@ public class MovieManager {
         items = tmp;
     }
 
-    public Movie[] getMovies() {
-        Movie[] reverse = new Movie[items.length];
-        int currentIndex = 0;
+    public Movie[] getAll() {
+        int resultLength = Math.min(showMoviesCount, items.length);
+        Movie[] result = new Movie[resultLength];
         // перебираем массив в прямом порядке
         // но кладём в результаты в обратном
-        for (int i = reverse.length - 1; i >= 0; i--) {
-            reverse[currentIndex] = items[i];
-            currentIndex++;
+        for (int i = 0; i < result.length; i++) {
+            int index = items.length - i - 1;
+            result[i] = items[index];
         }
-        if (reverse.length <= showMoviesCount) {
-            return reverse;
-        } else {
-            Movie[] results = new Movie[showMoviesCount];
-            for (int i = 0; i < showMoviesCount; i++) {
-                results[i] = reverse[i];
-            }
-            return results;
-        }
+        return result;
+
     }
+}
 //    // наивная реализация
 //    public void removeMovie(int id) { //  удалить фильм
 //        int length = items.length - 1;
@@ -64,4 +55,3 @@ public class MovieManager {
 //        // меняем наши элементы
 //        items = tmp;
 //    }
-}
