@@ -2,11 +2,13 @@ package ru.netology.manager;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.ExtendWith;
+import org.mockito.junit.jupiter.MockitoExtension;
 import ru.netology.domain.Movie;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-class MovieManagerTest {
+public class MovieManagerTest {
     private ru.netology.manager.MovieManager movieManager = new ru.netology.manager.MovieManager();
     private Movie first = new Movie(1, "https://www.kinopoisk.ru", "Бладшот", "боевик");
     private Movie second = new Movie(2, "https://www.kinopoisk.ru", "Вперёд", "мультфильм");
